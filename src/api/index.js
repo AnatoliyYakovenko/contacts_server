@@ -15,4 +15,9 @@ async function deleteData(id) {
   const response = await axios.delete(id);
   return response.data;
 }
-export { getData, sendData, deleteData };
+
+async function updateData(id, obj) {
+  const response = await axios.patch(id, obj);
+  return response.data;
+}
+export { getData, sendData, deleteData, updateData };

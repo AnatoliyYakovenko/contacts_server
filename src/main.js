@@ -1,6 +1,6 @@
 import { createCard } from "./markup";
 import { contactRef, formRef } from "./refs";
-import { getData, sendData, deleteData } from "./api";
+import { getData, sendData, deleteData, updateData } from "./api";
 import { addMarkup } from "./utils";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -43,6 +43,19 @@ async function deleteContact(event) {
     const id = parent.dataset.cardid;
     const response = await deleteData(id);
     parent.remove();
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+contactRef.addEventListener("input", updateName);
+async function updateName(event) {
+  try {
+    const parent = event.target.closest(".js-wrap-card");
+    const id = parent.dataset.cardid;
+    const obj = { name: event.target.textContent };
+    const response = await updateData(id, obj);
+    console.log(response);
   } catch (error) {
     console.log(error.message);
   }
