@@ -6,4 +6,9 @@ async function getData() {
   return response.data;
 }
 
-export { getData };
+async function sendData(objData) {
+  const response = await axios.post("", objData);
+  return response.data;
+}
+
+export { getData, sendData };

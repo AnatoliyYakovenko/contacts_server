@@ -1,6 +1,6 @@
 import { createCard } from "./markup";
 import { contactRef, formRef } from "./refs";
-import { getData } from "./api";
+import { getData, sendData } from "./api";
 import { addMarkup } from "./utils";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -17,3 +17,19 @@ async function init() {
   }
 }
 init();
+
+formRef.addEventListener("submit", onSubmit);
+
+async function onSubmit(event) {
+  try {
+    event.preventDefault();
+    const result = Object.fromEntries(new FormData(event.target));
+    result.createdAt = Date.now();
+    event.target.reset();
+    const response = await sendData(result);
+    const markup = createCard([response]);
+    addMarkup(contactRef, markup);
+  } catch (error) {
+    console.log(error.message);
+  }
+}
