@@ -11,4 +11,8 @@ async function sendData(objData) {
   return response.data;
 }
 
-export { getData, sendData };
+async function deleteData(id) {
+  const response = await axios.delete(id);
+  return response.data;
+}
+export { getData, sendData, deleteData };
